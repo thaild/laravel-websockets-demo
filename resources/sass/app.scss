@@ -25,9 +25,10 @@
     border-bottom: 1px dotted #B3A9A9;
   }
 
-  .chat li .chat-body p {
+  .chat li.chat-body div p {
     margin: 0;
     color: #777777;
+    overflow-wrap: anywhere;
   }
 
   .chats .card-body {

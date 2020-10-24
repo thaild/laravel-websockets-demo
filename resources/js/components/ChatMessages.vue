@@ -10,7 +10,7 @@
                         {{ message.user.name }}
                     </strong>
                 </div>
-                <p v-bind:class="{'float-right': message.user.id == user.id}">
+                <p v-bind:class="{'float-right text-right': message.user.id == user.id}">
                     {{ message.message }}
                 </p>
             </div>
