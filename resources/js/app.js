@@ -78,6 +78,8 @@ const app = new Vue({
             axios.get('/messages').then(response => {
                 this.messages = response.data;
             });
+
+            this.scrollButton();
         },
 
         addMessage(message) {
@@ -86,6 +88,15 @@ const app = new Vue({
             axios.post('/messages', message).then(response => {
                 console.log(response.data);
             });
+
+            this.scrollButton();
+        },
+
+        scrollButton() {
+            // auto scroll to button
+            setTimeout(function(){ 
+                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+            }, 100);
         }
     }
 });

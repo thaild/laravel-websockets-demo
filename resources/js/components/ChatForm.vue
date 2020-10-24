@@ -35,6 +35,10 @@
             },
 
             sendMessage() {
+                if (this.newMessage.length == 0) {
+                    return;
+                }
+
                 this.$emit('messagesent', {
                     user: this.user,
                     message: this.newMessage

@@ -1,13 +1,16 @@
 <template>
-    <ul class="chat" id="messages">
-        <li class="left clearfix" v-for="message in messages">
-            <div class="chat-body clearfix">
-                <div class="header">
-                    <strong class="primary-font">
+    <ul class="chat">
+        <li v-for="message in messages" :key="message.id" class="chat-body clearfix">
+            <div v-bind:class="{'float-right': message.user.id == user.id}">
+                <div class="header" >
+                    <strong 
+                        class="primary-font" 
+                        v-bind:class="{'float-right': message.user.id == user.id}"
+                    >
                         {{ message.user.name }}
                     </strong>
                 </div>
-                <p>
+                <p v-bind:class="{'float-right': message.user.id == user.id}">
                     {{ message.message }}
                 </p>
             </div>
@@ -17,6 +20,6 @@
 
 <script>
     export default {
-        props: ['messages']
+        props: ['messages', 'user']
     };
 </script>
