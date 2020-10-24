@@ -59,6 +59,7 @@ const app = new Vue({
                 });
             })
             .listen('MessageSent', (event) => {
+                // console.log(event);
                 this.messages.push({
                     message: event.message.message,
                     user: event.user
@@ -70,6 +71,8 @@ const app = new Vue({
                         this.$set(this.users, index, user);
                     }
                 });
+
+                this.scrollButton();
             });
     },
 
