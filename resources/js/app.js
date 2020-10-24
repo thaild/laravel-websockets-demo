@@ -20,6 +20,9 @@ window.Vue = require('vue');
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
+Vue.component('ChatForm', require('./components/ChatForm.vue').default);
+Vue.component('ChatMessages', require('./components/ChatMessages.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
