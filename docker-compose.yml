@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+  php:
+    image: connectivdocker/php:7.3
+    container_name: websockets-php
+    networks:
+      internal:
+        ipv4_address: 172.24.0.73
+    ports:
+    - 6001:6001
+    links:
+      - mysql
+    volumes:
+      - ./:/var/www/html/websockets.test.connectiv.vn
+      - ./docker/conf/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    working_dir: /var/www/html/websockets.test.connectiv.vn
+    restart: always
+
+  httpd:
+    image: httpd:2.4.33-alpine
+    networks:
+      internal:
+        ipv4_address: 172.24.0.80
+    hostname: websockets.test.connectiv.vn
+    ports:
+    - 80:80
+    volumes:
+      - ./docker/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./docker/conf/virtualhosts:/usr/local/apache2/conf/extra/vhosts
+      - ./docker/logs/httpd:/var/log/httpd
+    links:
+      - php
+    volumes_from:
+      - php:ro
+    restart: always
+
+  mysql:
+    image: mysql:5.7
+    container_name: websockets-database
+    environment:
+      MYSQL_ROOT_PASSWORD: t00r3
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_DATABASE: websockets
+    networks:
+      - internal
+    volumes:
+      - ./docker/database:/var/lib/mysql
+    restart: always
+
+networks:
+  internal:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/24
